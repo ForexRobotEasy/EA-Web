@@ -1,0 +1,123 @@
+
+// EA Web - Forex Robot Easy Team
+// Developer's Site: forexroboteasy.com
+
+// Include necessary libraries and headers
+#include <Trade\Trade.mqh>
+#include <Trade\PositionInfo.mqh>
+
+// Define constants
+#define SYMBOL_GBPUSD 'GBPUSD'
+#define SYMBOL_EURUSD 'EURUSD'
+#define TIMEFRAME_M5 5
+#define MIN_DEPOSIT 500
+#define MIN_TRADE_VOLUME 0.01
+#define MAX_TRADES_PER_DAY 100
+
+// Define global variables
+int g_totalTrades = 0;
+
+// Define trade functions
+void openTrade(string symbol, ENUM_ORDER_TYPE orderType, double volume)
+{
+    // Open trade based on predefined conditions
+    // ...
+    
+    // Print trade details
+    Print('Opening a trade on', symbol, 'with volume', DoubleToString(volume));
+    
+    // Update total trades count
+    g_totalTrades++;
+}
+
+void closeTrade(string symbol)
+{
+    // Close trade based on predefined conditions
+    // ...
+    
+    // Print trade details
+    Print('Closing trade on', symbol);
+}
+
+void modifyTrade(string symbol, double stopLoss, double takeProfit)
+{
+    // Modify trade based on predefined conditions
+    // ...
+    
+    // Print modified trade details
+    Print('Modifying trade on', symbol, 'with stop loss', DoubleToString(stopLoss), 'and take profit', DoubleToString(takeProfit));
+}
+
+// Define money management strategy
+void moneyManagement(double capital)
+{
+    // Calculate 1/4 of capital
+    double investment = capital * 0.25;
+    
+    // Invest 1/4 of capital into trading account
+    // ...
+    
+    // Print investment details
+    Print('Investing', DoubleToString(investment), 'into trading account');
+}
+
+// Define main program
+void OnTick()
+{
+    // Check if maximum trades per day reached
+    if (g_totalTrades >= MAX_TRADES_PER_DAY)
+    {
+        Print('Maximum trades per day reached. Exiting program.');
+        return;
+    }
+    
+    // Check account balance and equity
+    double balance = AccountInfoDouble(ACCOUNT_BALANCE);
+    double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+    
+    // Check if minimum deposit requirement met
+    if (balance < MIN_DEPOSIT)
+    {
+        Print('Minimum deposit requirement not met. Exiting program.');
+        return;
+    }
+    
+    // Check if minimum trade volume requirement met
+    if (MIN_TRADE_VOLUME < 0.01)
+    {
+        Print('Minimum trade volume requirement not met. Exiting program.');
+        return;
+    }
+    
+    // Analyze currency pair performance and market trends
+    // ...
+    
+    // Open trades based on predefined conditions
+    openTrade(SYMBOL_GBPUSD, ORDER_TYPE_BUY, 0.01);
+    openTrade(SYMBOL_EURUSD, ORDER_TYPE_SELL, 0.01);
+    
+    // Close trades based on predefined conditions
+    closeTrade(SYMBOL_GBPUSD);
+    
+    // Modify trades based on predefined conditions
+    modifyTrade(SYMBOL_EURUSD, 1.5, 2.0);
+    
+    // Perform money management strategy
+    moneyManagement(balance);
+}
+
+// Define initialization function
+int OnInit()
+{
+    // Set EA parameters and settings
+    // ...
+    
+    return(INIT_SUCCEEDED);
+}
+
+// Define deinitialization function
+void OnDeinit(const int reason)
+{
+    // Cleanup resources and perform necessary actions
+    // ...
+}
